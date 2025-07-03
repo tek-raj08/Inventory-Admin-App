@@ -1,11 +1,23 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../actions";
 
 const AddNewItems = () => {
+  const dispatch = useDispatch();
   const [itemName, setItemName] = useState("");
   const [itemQuantity, setItemQuantity] = useState("");
-  const [entryType, setEntryType] = useState("");
+  const [entryType, setEntryType] = useState("addToStorage");
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      addItem({ name: itemName, quantity: parseFloat(itemQuantity), entryType })
+    );
+
+    setItemName("");
+    setItemQuantity("");
+    setEntryType("addToStorage");
+  };
 
   return (
     <div>
@@ -20,7 +32,7 @@ const AddNewItems = () => {
         />
         <br />
         <br />
-        <label htmlFor="">Item Name:</label>
+        <label htmlFor="">Item Quantity:</label>
         <br />
         <input
           type="number"
